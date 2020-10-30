@@ -119,6 +119,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "AgileProjectManagementToolkitFE"
+    }
+  },
+  "defaultProject": "AgileProjectManagementToolkitFE",
+  "cli": {
+    "analytics": "9354e82c-ec10-40c3-a3a1-3bb8a035d30d"
+  }
 }
