@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { SharedList } from 'src/app/shared/list/shared-list';
 
 @Component({
   selector: 'app-home',
@@ -7,10 +8,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomeComponent implements OnInit {
 
+  category = SharedList.CategoryList;
+
   constructor() { }
 
   ngOnInit(): void {
-    console.log("in here");
+
   }
 
 }

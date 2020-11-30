@@ -8,6 +8,18 @@
     -moz-osx-font-smoothing: grayscale;
   }
 
+  .mainButton{
+    width: 100%;
+    padding-top: 10%;
+  }
+
+  .buttonImg{
+    object-fit: cover; 
+    overflow: hidden; 
+    width: 100%; 
+    height: 100%;
+  } 
+
   h1,
   h2,
   h3,
@@ -287,3 +299,5 @@
       visibility: hidden;
     }
   }
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
