@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
 import { ProjectService } from 'src/app/shared/service/project-service.service';
+import { ProjectDetailDialog } from './project-detail/project-detail.component';
 
 @Component({
   selector: 'app-project',
@@ -18,7 +20,8 @@ export class ProjectComponent implements OnInit {
   ]
 
   dataSource  = new MatTableDataSource();
-  constructor( private projectService : ProjectService) { 
+  constructor( private projectService : ProjectService , 
+    public dialog: MatDialog) { 
   }
 
   ngOnInit() {
@@ -28,5 +31,16 @@ export class ProjectComponent implements OnInit {
       }
     )
   }
+
+  onCreatePopup(){
+    const dialogRef = this.dialog.open(ProjectDetailDialog , {
+
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log("close with the result" + result);
+    } )
+  }
+
 
 }
