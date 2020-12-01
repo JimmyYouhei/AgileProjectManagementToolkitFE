@@ -11,7 +11,7 @@ export class AppComponent implements OnInit {
   category = SharedList.CategoryList
 
   ngOnInit(): void {
-    console.log("in main");
+    
   }
 
   title = 'AgileProjectManagementToolkitFE';
