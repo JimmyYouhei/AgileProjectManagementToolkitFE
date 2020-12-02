@@ -1,1 +1,32 @@
-ok ok ok
+<div class="container">
+    <h2 >
+        <span *ngIf="!projectId">Create new project</span>
+        <span *ngIf="projectId">Edit current project</span>
+    </h2>
+
+    <form (ngSubmit)="onSubmit()" #projectForm="ngForm">
+        <div class="row">
+            <mat-form-field class="col-md-4">
+                <mat-label>Project Name</mat-label>
+                <input type="text" matInput placeholder="Project Name"
+                       [(ngModel)]="projectDetail.projectName" name="projectName" >
+            </mat-form-field>
+    
+            <mat-form-field class="col-md-4">
+                <mat-label>Project Desciption</mat-label>
+                <input type="text" matInput placeholder="Project Description" 
+                       [(ngModel)]="projectDetail.projectDescription" name="projectDecription" >
+            </mat-form-field>
+    
+            <mat-form-field class="col-md-4">
+                <mat-label>Project Version</mat-label>
+                <input type="text" matInput placeholder="Project Version"
+                       [(ngModel)]="projectDetail.projectVersion" name="projectVersion" >
+            </mat-form-field>
+        </div>
+
+
+    </form>
+
+</div>
+
