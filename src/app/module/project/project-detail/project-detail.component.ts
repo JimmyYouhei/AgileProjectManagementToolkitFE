@@ -19,7 +19,21 @@ import { ProjectService } from 'src/app/shared/service/project-service.service';
       }
       
     onSubmit(){
-      console.log("submit")
+      if(!this.projectId){
+        this.projectService.createNewProject(this.projectDetail).subscribe(
+          response => {
+            console.log("response");
+          }, 
+          error => {
+            console.log("error");
+          }
+        );
+      }
+
     }    
+
+    onCancel(){
+      this.dialogRef.close(false);
+    }
 
   }
