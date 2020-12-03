@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatTableDataSource } from '@angular/material/table';
+import { ConfirmDeleteDialog } from 'src/app/shared/component/confirm-delete.component';
+import { ConfirmDataModel } from 'src/app/shared/model/confirm-data.model';
 import { ProjectService } from 'src/app/shared/service/project-service.service';
 import { ProjectDetailDialog } from './project-detail/project-detail.component';
 
@@ -21,11 +24,11 @@ export class ProjectComponent implements OnInit {
 
   dataSource  = new MatTableDataSource();
   constructor( private projectService : ProjectService , 
-    public dialog: MatDialog) { 
+    public dialog: MatDialog , private snackBar : MatSnackBar) { 
   }
 
   ngOnInit() {
-    this.projectService.getAllProject().subscribe(
+    this.projectService.getAllElement().subscribe(
       response => {
         this.dataSource.data = response;
       }
@@ -38,8 +41,63 @@ export class ProjectComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log("close with the result" + result);
-    } )
+
+      this.snackBar.open("Create new project successfully" , null , {
+        duration : 3000
+      } );
+      this.projectService.getAllElement().subscribe(
+        response => {
+          this.dataSource.data = response;
+        }
+      )
+    })
+  }
+
+  onUpdateElement(element : any){
+    const dialogRef = this.dialog.open(ProjectDetailDialog , {
+      data : element
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+
+      if(result){
+        
+        this.snackBar.open("Update project successfully" , null , {
+        duration : 3000
+        });
+        this.projectService.getAllElement().subscribe(
+          response => {
+            this.dataSource.data = response;
+          }
+        )
+      }
+
+    })
+  }
+
+  onDeleteElement(element : any){
+
+    const data : ConfirmDataModel = new ConfirmDataModel(this.projectService , element.id ,
+       "Are you sure you want to delete the project: " + element.projectName)
+
+    const dialogRef = this.dialog.open( ConfirmDeleteDialog , {
+      data : data
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+
+      if(result){
+        
+        this.snackBar.open("Delete project successfully" , null , {
+        duration : 3000
+        });
+        this.projectService.getAllElement().subscribe(
+          response => {
+            this.dataSource.data = response;
+          }
+        )
+      }
+    })
   }
 
 

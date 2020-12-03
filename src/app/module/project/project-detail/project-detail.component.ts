@@ -13,21 +13,32 @@ import { ProjectService } from 'src/app/shared/service/project-service.service';
   
     constructor(
       public dialogRef: MatDialogRef<ProjectDetailDialog>,
-      @Inject(MAT_DIALOG_DATA) public data: number , 
+      @Inject(MAT_DIALOG_DATA) public data: any , 
       private projectService : ProjectService) {
-        this.projectId = this.data
+        let projectDetail = Object.assign({} , this.data);
+        this.projectDetail = projectDetail;
+        this.projectId = this.projectDetail.id;
       }
       
     onSubmit(){
       if(!this.projectId){
-        this.projectService.createNewProject(this.projectDetail).subscribe(
+        this.projectService.createNewElement(this.projectDetail).subscribe(
           response => {
-            console.log("response");
+            this.dialogRef.close(true);
           }, 
           error => {
             console.log("error");
           }
         );
+      } else {
+        this.projectService.updateElement(this.projectDetail , this.projectId).subscribe(
+          response => {
+            this.dialogRef.close(true)
+          },
+          error => {
+            console.log("error");
+          }
+        )
       }
 
     }    
