@@ -12,6 +12,10 @@ export class ProjectService extends  BaseService{
 
   public URL = environment.apiUrl+ "project"
 
+  testError() : Observable<any>{
+    return this.deleteElement(0);
+  }
+
 
 
 }

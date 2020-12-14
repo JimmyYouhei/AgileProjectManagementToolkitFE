@@ -9,9 +9,9 @@ import { BaseModel } from '../model/Base.model';
 })
 export class BaseService {
   
-  public URL = environment.apiUrl
+  public URL = environment.apiUrl;
   
-  constructor(private http: HttpClient) { }
+  constructor(public http: HttpClient) { }
 
   getAllElement() : Observable<any> {
     return this.http.get(this.URL)

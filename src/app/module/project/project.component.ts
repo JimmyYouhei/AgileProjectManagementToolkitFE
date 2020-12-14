@@ -23,11 +23,15 @@ export class ProjectComponent implements OnInit {
   ]
 
   dataSource  = new MatTableDataSource();
-  constructor( private projectService : ProjectService , 
-    public dialog: MatDialog , private snackBar : MatSnackBar) { 
+  constructor( private projectService : ProjectService ,
+    public dialog: MatDialog , private snackBar : MatSnackBar) {
   }
 
   ngOnInit() {
+    this.onGetData();
+  }
+
+  onGetData(){
     this.projectService.getAllElement().subscribe(
       response => {
         this.dataSource.data = response;
@@ -42,14 +46,13 @@ export class ProjectComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
 
-      this.snackBar.open("Create new project successfully" , null , {
-        duration : 3000
-      } );
-      this.projectService.getAllElement().subscribe(
-        response => {
-          this.dataSource.data = response;
-        }
-      )
+      if (result){
+        this.snackBar.open("Create new project successfully" , null , {
+          duration : 3000
+        } );
+        this.onGetData();
+      }
+
     })
   }
 
@@ -61,15 +64,11 @@ export class ProjectComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
 
       if(result){
-        
+
         this.snackBar.open("Update project successfully" , null , {
         duration : 3000
         });
-        this.projectService.getAllElement().subscribe(
-          response => {
-            this.dataSource.data = response;
-          }
-        )
+        this.onGetData();
       }
 
     })
@@ -87,15 +86,11 @@ export class ProjectComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
 
       if(result){
-        
+
         this.snackBar.open("Delete project successfully" , null , {
         duration : 3000
         });
-        this.projectService.getAllElement().subscribe(
-          response => {
-            this.dataSource.data = response;
-          }
-        )
+        this.onGetData();
       }
     })
   }
